@@ -731,7 +731,7 @@ MonoBehaviour:
   _wayPoints: {fileID: 686642033}
   _stoppingDistance: 0.1
   _stopDelay: 1
-  _speed: 1
+  _speed: 3
   _targets:
   - {fileID: 389645405}
   - {fileID: 817690187}
@@ -1015,10 +1015,9 @@ GameObject:
   m_Component:
   - component: {fileID: 876676119}
   - component: {fileID: 876676118}
-  - component: {fileID: 876676121}
   - component: {fileID: 876676120}
   m_Layer: 0
-  m_Name: Signaling
+  m_Name: SignalingTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1053,12 +1052,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 876676115}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.73, y: 1.59, z: 1.38}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.5958283, y: 1.0955431, z: -0.30614018}
   m_LocalScale: {x: 8, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1635313427}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &876676120
 MonoBehaviour:
@@ -1069,27 +1068,54 @@ MonoBehaviour:
   m_GameObject: {fileID: 876676115}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1db7c2c50ac11ee4e8394e93787dafa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &967072262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 967072265}
+  - component: {fileID: 967072264}
+  - component: {fileID: 967072263}
+  m_Layer: 0
+  m_Name: Signalling
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &967072263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967072262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06d7a291ebe046747ac208a7269f3211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioSource: {fileID: 876676121}
-  _minVolume: 0
-  _maxVolume: 1
-  _volumeChangeStep: 0.001
-  _volumeChangeTime: 0.001
---- !u!82 &876676121
+  _audioSource: {fileID: 967072264}
+  _volumeChangeStep: 0.4
+--- !u!82 &967072264
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 876676115}
+  m_GameObject: {fileID: 967072262}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 11e1dc05268a9fe4796033333926c5a4, type: 3}
   m_Resource: {fileID: 8300000, guid: 11e1dc05268a9fe4796033333926c5a4, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -1174,6 +1200,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!4 &967072265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967072262}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 15.72}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1635313427}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1635313426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,6 +1224,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1635313427}
+  - component: {fileID: 1635313428}
   m_Layer: 0
   m_Name: House
   m_TagString: Untagged
@@ -1206,8 +1248,24 @@ Transform:
   - {fileID: 258514420}
   - {fileID: 867526155}
   - {fileID: 1885605272}
+  - {fileID: 876676119}
+  - {fileID: 967072265}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1635313428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635313426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 026f2d54eff67ff42a8e00cb60ac07d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _signaling: {fileID: 967072263}
+  _signalingTrigger: {fileID: 876676120}
 --- !u!1 &1885605271
 GameObject:
   m_ObjectHideFlags: 0
@@ -1435,5 +1493,4 @@ SceneRoots:
   - {fileID: 2044072828}
   - {fileID: 688831359}
   - {fileID: 1635313427}
-  - {fileID: 876676119}
   - {fileID: 686642033}
