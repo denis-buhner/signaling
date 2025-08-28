@@ -3,16 +3,22 @@ using UnityEngine;
 
 public class SignalingTrigger : MonoBehaviour
 {
-    public event Action SignalingZoneEnter;
-    public event Action SignalingZoneExit;
+    public event Action SignalingZoneEntered;
+    public event Action SignalingZoneExited;
 
     private void OnTriggerEnter(Collider other)
     {
-        SignalingZoneEnter?.Invoke();
+        if (other.GetComponent<BanditMovement>() != null)
+        {
+            SignalingZoneEntered?.Invoke();
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        SignalingZoneExit?.Invoke();
+        if (other.GetComponent<BanditMovement>() != null)
+        {
+            SignalingZoneExited?.Invoke();
+        }
     }
 }

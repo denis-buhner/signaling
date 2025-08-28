@@ -6,13 +6,18 @@ public class Signaling : MonoBehaviour
 {
     [SerializeField] private AudioSource _audioSource;
     [SerializeField][Range(0,1f)] private float _volumeChangeStep;
+    [SerializeField][Range(0, 1f)] private float _minVolume;
+    [SerializeField][Range(0, 1f)] private float _maxVolume;
 
-    private Coroutine _startSignal;
-    private float _minVolume = 0;
-    private float _maxVolume = 1;
+    private Coroutine _changeVolume;
 
-    public float MinVolume => _minVolume;
-    public float MaxVolume => _maxVolume;
+    private void OnValidate()
+    {
+        if (_minVolume > _maxVolume)
+        {
+            _minVolume = _maxVolume;
+        }
+    }
 
     private void Awake()
     {
@@ -20,38 +25,44 @@ public class Signaling : MonoBehaviour
         _audioSource.volume = _minVolume;
     }
 
-    public void ChangeVolume(float startVolume, float finishVolume)
+    public void StartSignaling()
     {
-        if (_startSignal != null)
-        {
-            StopCoroutine(_startSignal);
-            _startSignal = StartCoroutine(StartSignal(startVolume, finishVolume)); ;
-        }
-        else
-        {
-            _startSignal = StartCoroutine(StartSignal(startVolume, finishVolume));
-        } 
+        TryStopChangeVolume();
+
+        _audioSource.Play();
+        _changeVolume = StartCoroutine(ChangeVolume(_maxVolume));
     }
 
-    private IEnumerator StartSignal(float startVolume, float finishVolume)
+    public void StopSignaling()
     {
-        if (finishVolume > startVolume)
-        {
-            _audioSource.Play();
-        }
+        TryStopChangeVolume();
 
-        while (_audioSource.volume != finishVolume)
+        _changeVolume = StartCoroutine(ChangeVolume(_minVolume));
+    }
+
+    private void TryStopChangeVolume()
+    {
+        if (_changeVolume != null)
         {
-            _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, finishVolume, _volumeChangeStep*Time.deltaTime);
+            StopCoroutine(_changeVolume);
+            _changeVolume = null;
+        }
+    }
+
+    private IEnumerator ChangeVolume(float targetVolume)
+    {
+        while (_audioSource.volume != targetVolume)
+        {
+            _audioSource.volume = Mathf.MoveTowards(_audioSource.volume, targetVolume, _volumeChangeStep*Time.deltaTime);
 
             yield return null;
         }
 
-        if (finishVolume < startVolume)
+        if(_audioSource.volume == _minVolume)
         {
             _audioSource.Stop();
         }
 
-        _startSignal = null;
+        _changeVolume = null;
     }
 }
